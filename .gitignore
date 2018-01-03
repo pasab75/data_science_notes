@@ -54,3 +54,4 @@ vignettes/*.pdf
 *.zip
 *.jpg
 desktop.
+.Rproj.user
