@@ -1,5 +1,5 @@
 library("lubridate")
-# Start time Jan 3rd 2018 @ 2020
+# Start time Jan 3rd 2018 @ 2020 -> 2200
 textVariableManipulationNotes <- function(){
   # want all lower case data
   # descriptive text/variable names
