@@ -1,7 +1,8 @@
 library("data.table")
 library("reshape2")
 library("dplyr")
-# started at Jan 4th 2018 @ 1900 -> 2130
+# started at Jan 4th 2018 @ 1900 -> 2200
+
 project1 <- function(){
   fileName <- "./data/trackers.zip"
   dirUCI <- "./data/UCI HAR Dataset/"
@@ -10,7 +11,7 @@ project1 <- function(){
     fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
     download.file(fileUrl,destfile = fileName)
   }
-  if (!file.exists("UCI HAR Dataset")) { 
+  if (!file.exists("UCI HAR Dataset")) {
     unzip(fileName, exdir='./data')
   }
   setwd(dirUCI)
@@ -23,19 +24,7 @@ project1 <- function(){
   YTrainTable <- data.table::fread(file.path("train", "y_train.txt"))
   YTestTable  <- data.table::fread(file.path("test" , "y_test.txt" ))
   activityNamesTable <- data.table::fread("activity_labels.txt", col.names=c("activityNumber","activityName"))
-  setwd("~/workspace/data_science_notes/data_cleaning/week4/project")
-  #print(head(featureNames, n=10))
-  # keeps throwing warnings? nvm don't need it # featuresInfoTable <- data.table::fread(file.path(dirUCI, "features_info.txt"))
-  #print(activityNamesTable)
-  #print(featuresTable)
-  #print(subjectTrainTable)
-  #print(subjectTestTable)
-  #print(XTrainTable)
-  #print(XTestTable)
-  #print(YTestTable)
-  #print(YTrainTable)
-  #print(dtFeaturesInfo)
-  #rbind is useful to bind more than one table together by row, cbind is for column
+  setwd("../../")
   subjectMergedTable <- rbind(subjectTrainTable, subjectTestTable)
   XMergedTable <- rbind(XTrainTable, XTestTable)
   YMergedTable <- rbind(YTrainTable, YTestTable)
@@ -65,5 +54,6 @@ project1 <- function(){
   #labelledData$mean <- dcast(labelledData$melt, subject + activityName ~ variable, mean)
   print("################")
   print(head(total_mean, n=20))
+  write.table(total_mean, file = "tidydata.txt", row.names = FALSE, col.names = TRUE)
   return(total_mean)
 }
